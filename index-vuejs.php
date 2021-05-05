@@ -20,12 +20,12 @@
         <img src="img/download.png" alt="">
       </header>
       <div id="root">
-        <select class="generi" name="generi"  v-model='selectGenere'>
-          <option value="">Nessuna scelta</option>
+        <select class="generi" name="generi"  v-model='selectGenere' @change="genreFilter(selectGenere)">
+          <option value="" >Nessuna scelta</option>
           <option v-bind:value="genere" v-for="genere in generi">{{genere}}</option>
         </select>
         <div class="container-albums">
-          <div class="album" v-for="album in albums" v-if="selectGenere == album.genre || selectGenere == ''">
+          <div class="album" v-for="album in albums" >
             <img :src="album.poster" alt="album.title">
             <h3>{{ album.title }}</h3>
             <span class="author">{{ album.author }}</span>

@@ -10,7 +10,6 @@ var app = new Vue(
       let self = this;
         axios.get('http://localhost:8888/php-ajax-dischi/api.php').then(function (response) {
           self.albums = response.data;
-          console.log(self.albums);
           self.albums.sort(function (a, b) {
             return a.year - b.year;
           });
@@ -20,6 +19,32 @@ var app = new Vue(
             }
           }
       });
+    },
+    methods:{
+      genreFilter: function(genere){
+          let self = this;
+          if (genere != ''){
+            axios.get('http://localhost:8888/php-ajax-dischi/api.php',{
+            params: {
+              genere: genere
+            }
+          }
+          ).then(function (response) {
+            self.albums = response.data;
+            self.albums.sort(function (a, b) {
+              return a.year - b.year;
+            });
+        });
+        } else {
+          axios.get('http://localhost:8888/php-ajax-dischi/api.php').then(function (response) {
+          self.albums = response.data;
+          self.albums.sort(function (a, b) {
+            return a.year - b.year;
+          });
+      });
+        }
+      }
+        
     }
   }
 );
